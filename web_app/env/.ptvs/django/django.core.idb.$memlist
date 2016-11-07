@@ -1,13 +1,13 @@
 urlresolvers
 signing
-validators
+servers
 wsgi
 handlers
 serializers
 cache
 exceptions
 checks
-servers
+validators
 signals
 paginator
 files
