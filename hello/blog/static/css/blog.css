@@ -1,0 +1,39 @@
+  .page-header {
+	font-family: arial;
+        background-color: #d7d7d7;
+        margin-top: 0;
+        padding: 20px 20px 20px 20px;
+    }
+
+  .page-center {
+        background-color: #ffffff;
+	text-align: center;
+        margin-top: 0;
+        padding: 10px 10px 10px 10px;
+    }
+
+
+ul {
+    font-family: arial;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+}
