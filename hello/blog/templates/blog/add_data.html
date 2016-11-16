@@ -1,0 +1,28 @@
+{% load staticfiles %}
+
+<html>
+<body bgcolor="#ffffff">
+
+<header>
+	<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <div class="page-header">Spectral chart</div> 
+</header>
+
+<ul id="navbar">
+  <li><a href="http://127.0.0.1:8000/">Main</a></li>  
+  <li><a href="http://127.0.0.1:8000/add/">Add data</a></li>
+  <li><a href="http://127.0.0.1:8000/about/">About</a></li>
+</ul>	
+
+
+  
+<p><input type=search placeholder="Sampling Frequency, Hz"></p>
+
+<p><input type=file name=button value="Open file"></p>
+
+<form action="http://127.0.0.1:8000/main_chart/">
+    <p><input type="submit" value="Create chart" /></p>
+</form>
+
+</body>
+</html>

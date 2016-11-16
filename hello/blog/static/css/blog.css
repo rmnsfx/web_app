@@ -1,18 +1,31 @@
-  .page-header {
+body {
+    margin: 0; /* Убираем отступы */
+}
+
+.page-header {
 	font-family: arial;
-        background-color: #d7d7d7;
-        margin-top: 0;
-        padding: 20px 20px 20px 20px;
-    }
+    font-weight: bold;
+	font-size: 40;
+	background-color: #d7d7d7;    
+    padding: 20px;	
+}
 
-  .page-center {
-        background-color: #ffffff;
+.page-center {
+    background-color: #ffffff;
 	text-align: center;
-        margin-top: 0;
-        padding: 10px 10px 10px 10px;
-    }
+    margin-top: 0;
+    padding: 10px 10px 10px 10px;
+}
 
 
+.text {
+	
+	font-family: arial;	
+	font-size: 50;
+	text-align: width;
+    padding: 90;
+}	
+	
 ul {
     font-family: arial;
     list-style-type: none;
@@ -36,4 +49,8 @@ li a {
 
 li a:hover {
     background-color: #111;
+}
+
+p {
+	margin: 20px;
 }

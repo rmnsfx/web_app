@@ -1,0 +1,23 @@
+{% load staticfiles %}
+
+<html>
+<body bgcolor="#ffffff">
+
+<header>
+	<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <div class="page-header">Spectral chart</div> 
+</header>
+
+<ul id="navbar">
+  <li><a href="http://127.0.0.1:8000/">Main</a></li>  
+  <li><a href="http://127.0.0.1:8000/add/">Add data</a></li>
+  <li><a href="http://127.0.0.1:8000/about/">About</a></li>
+</ul>	
+
+    
+<div class="page-center">
+<img src="http://127.0.0.1:8000/chart/" />
+</div>
+
+</body>
+</html>
