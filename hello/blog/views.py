@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.template import Context, RequestContext
 
 #def post_list(request):
 #    return render(request, 'blog/post_list.html', {})
-
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 from pylab import figure, axes, pie, title
@@ -16,8 +17,19 @@ from tkinter.filedialog import *
 from tkinter.messagebox import *
 import fileinput
 import threading
-import matplotlib
-matplotlib.use('Agg')
+import os.path
+import inspect
+from django.template import RequestContext
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from blog.models import Document 
+from blog.forms import DocumentForm
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+from django.views.decorators.csrf import csrf_protect
+
+rate = 0
+file = 0
 
 def main (request):
     return render_to_response('blog/main.html')          
@@ -26,18 +38,36 @@ def add_data (request):
     return render_to_response('blog/add_data.html')  
 	
 def main_chart (request):
+    
+    global rate
+    #rate = request.GET['rate']
+	
+    global file
+    #file = request.GET['file']
+	
+    #homePath = os.getcwd()
+    #sample_freq(homePath)
+	
     return render_to_response('blog/main_chart.html')  
 	
 def post_list(request):
 
-    Fs = 150.0;  # sampling rate
-    Ts = 1.0/Fs; # sampling interval
-    ff = 50;   # frequency of the signal
-	
-    t = np.arange(0,1,Ts) # time vector    
-    y = np.sin(2*np.pi*ff*t) 
 
+    #Ts = 1.0/Fs; # sampling interval
+    #ff = 50;   # frequency of the signal	    
+    #y = np.sin(2*np.pi*ff*t) 
+	
+    with open("c:\\example.txt") as file: # open and separate per line 
+        array = [row.strip() for row in file]
+    
+    y = [float(i) for i in array] # parse string to float
+	
     n = len(y) # length of the signal
+    t = np.arange(0,n,1) # time vector    
+	
+    Fs = float(rate);  # sampling rate  
+	
+	
     k = np.arange(n)
     T = n/Fs
     frq = k/T # two sides frequency range
@@ -63,7 +93,7 @@ def post_list(request):
 	    	
     plt.close()	
 	
-    return response           
+    return response                     
     #return render(request, 'blog/post_list.html', {'response': response})
     #return render_to_response('blog/post_list.html', {'response': response})
     #return HttpResponse (response.getvalue(), content_type="Image/png")
@@ -80,14 +110,51 @@ def open_file(self):
     root.withdraw()
    
     op = askopenfile()      
-    root.mainloop()
-	
- 
-		
+    root.mainloop()		
     #t = threading.Thread(target=callback)
     #t.daemon = False 
     #t.start()
 	#root.deiconify()
     #root.lift()
     #root.focus_force() 
+	
+def sample_freq(sample_freq):
+    root = Tk()
+    root.attributes("-topmost", True)
+    root.withdraw()   
+    op = showinfo("Say Hello", sample_freq)      
+    root.mainloop()
+	
+
+
+def upload_file(request):
+
+     form = DocumentForm(request.POST, request.FILES)
+     
+     if form.is_valid():
+	      form.save()
+	      return HttpResponseRedirect(reverse('main_chart')) 
+     else:
+	      form = DocumentForm()
+	 
+     return render(request, 'blog/add_data.html', {'form': form}, context_instance=RequestContext(request)) 
     
+	#{ 'form': form }, 
+	# # Handle file upload    
+    # form = DocumentForm(request.POST, request.FILES)
+	
+    # if form.is_valid():
+	        
+        # form.save()
+
+        # # Redirect to the document list after POST
+        # return HttpResponseRedirect(reverse('main_chart'))
+    
+    # # Load documents for the list page
+    # documents = Document.objects.all()
+
+    # # Render list page with the documents and the form
+    # return render( request, 'blog/add_data.html', {'form': form} )
+	
+    #if request.method == 'POST':
+

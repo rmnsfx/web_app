@@ -15,14 +15,28 @@
 </ul>	
 
 
-  
-<p><input type=search placeholder="Sampling Frequency, Hz"></p>
+<!-- <form action="http://127.0.0.1:8000/main_chart/" method="get">
+	
+	<p><input type=search name=rate placeholder="Sampling Frequency, Hz" ></p>
 
-<p><input type=file name=button value="Open file"></p>
+	<p><input type=file name=file value="Open file"></p>
 
-<form action="http://127.0.0.1:8000/main_chart/">
-    <p><input type="submit" value="Create chart" /></p>
+    <p><input type="submit" value="Create chart"/></p>
+</form> -->
+
+
+{% block content %}
+
+<form action="{% url "upload_file" %}" method="post" enctype="multipart/form-data">
+    
+	{% csrf_token %}
+	
+	{{ form.as_p }}
+
+    <p><input type="submit" value="Upload"/></p>
 </form>
+
+{% endblock %}
 
 </body>
 </html>
