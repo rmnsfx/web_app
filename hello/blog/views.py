@@ -1,9 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import Context, RequestContext
-
-#def post_list(request):
-#    return render(request, 'blog/post_list.html', {})
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
@@ -32,32 +29,36 @@ rate = 0
 file = 0
 
 def main (request):
-    return render_to_response('blog/main.html')          
+    return render_to_response('blog/main.html')           
 	
-def add_data (request):
-    return render_to_response('blog/add_data.html')  
+#def add_data (request):
+#    return render_to_response('blog/add_data.html')  
 	
 def main_chart (request):
     
-    global rate
-    #rate = request.GET['rate']
-	
-    global file
+    #global rate 
+    #rate = request.POST.get['d', ""] 
+    
+    #global file
     #file = request.GET['file']
 	
     #homePath = os.getcwd()
     #sample_freq(homePath)
 	
-    return render_to_response('blog/main_chart.html')  
+    return render_to_response('blog/main_chart.html')   
 	
 def post_list(request):
 
-
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+	
     #Ts = 1.0/Fs; # sampling interval
     #ff = 50;   # frequency of the signal	    
     #y = np.sin(2*np.pi*ff*t) 
+	    
+    file_path = os.path.join(MEDIA_ROOT, "example.txt")
 	
-    with open("c:\\example.txt") as file: # open and separate per line 
+    with open(file_path) as file: # open and separate per line 
         array = [row.strip() for row in file]
     
     y = [float(i) for i in array] # parse string to float
@@ -123,16 +124,22 @@ def sample_freq(sample_freq):
     root.attributes("-topmost", True)
     root.withdraw()   
     op = showinfo("Say Hello", sample_freq)      
-    root.mainloop()
+    root.mainloop()   
 	
 
 
 def upload_file(request):
 
+     global rate
+     global file
+	 
      form = DocumentForm(request.POST, request.FILES)
      
      if form.is_valid():
-	      form.save()
+          rate = form.cleaned_data['description']
+          file = form.cleaned_data['document'].name
+     if form.is_valid():
+	      form.save()          
 	      return HttpResponseRedirect(reverse('main_chart')) 
      else:
 	      form = DocumentForm()
