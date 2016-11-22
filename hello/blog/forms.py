@@ -7,7 +7,7 @@ class DocumentForm(forms.ModelForm):
         fields = ('description', 'document', )
         labels = {'description': ('Sample rate, Hz:'), 'document': ('')}
         #widgets = {'description': forms.Textarea(attrs={'placeholder': 'Search'}),}
-        #field_classes = {'description': SRField,}
+        
 
 		
 	#docfile = forms.FileField( label='Select a file' )

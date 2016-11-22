@@ -27,12 +27,11 @@ from django.views.decorators.csrf import csrf_protect
 
 rate = 0
 file = 0
+file_path = 0
 
 def main (request):
     return render_to_response('blog/main.html')           
-	
-#def add_data (request):
-#    return render_to_response('blog/add_data.html')  
+ 
 	
 def main_chart (request):
     
@@ -41,22 +40,22 @@ def main_chart (request):
     
     #global file
     #file = request.GET['file']
+
+    global file_path
 	
-    #homePath = os.getcwd()
-    #sample_freq(homePath)
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    file_path = os.path.join(MEDIA_ROOT, file)
 	
     return render_to_response('blog/main_chart.html')   
 	
 def post_list(request):
-
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+  
 	
     #Ts = 1.0/Fs; # sampling interval
     #ff = 50;   # frequency of the signal	    
     #y = np.sin(2*np.pi*ff*t) 
-	    
-    file_path = os.path.join(MEDIA_ROOT, "example.txt")
+    
 	
     with open(file_path) as file: # open and separate per line 
         array = [row.strip() for row in file]
@@ -66,8 +65,7 @@ def post_list(request):
     n = len(y) # length of the signal
     t = np.arange(0,n,1) # time vector    
 	
-    Fs = float(rate);  # sampling rate  
-	
+    Fs = float(rate);  # sampling rate  	
 	
     k = np.arange(n)
     T = n/Fs
@@ -146,22 +144,5 @@ def upload_file(request):
 	 
      return render(request, 'blog/add_data.html', {'form': form}, context_instance=RequestContext(request)) 
     
-	#{ 'form': form }, 
-	# # Handle file upload    
-    # form = DocumentForm(request.POST, request.FILES)
-	
-    # if form.is_valid():
-	        
-        # form.save()
 
-        # # Redirect to the document list after POST
-        # return HttpResponseRedirect(reverse('main_chart'))
-    
-    # # Load documents for the list page
-    # documents = Document.objects.all()
-
-    # # Render list page with the documents and the form
-    # return render( request, 'blog/add_data.html', {'form': form} )
-	
-    #if request.method == 'POST':
 
