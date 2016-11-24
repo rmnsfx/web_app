@@ -1,5 +1,0 @@
-django
-matplotlib
-numpy
-gunicorn
-whitenoise
