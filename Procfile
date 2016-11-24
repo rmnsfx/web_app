@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath="$PWD/spectralchart/hello" wsgi:application --log-file -
+web: gunicorn --pythonpath="$PWD/hello" wsgi:application --log-file -
