@@ -1,1 +1,1 @@
-web: gunicorn spectralchart:app
+web: gunicorn hello:app
