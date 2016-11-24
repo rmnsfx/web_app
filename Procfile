@@ -1,1 +1,1 @@
-web: gunicorn spectralchart.wsgi --log-file -
+web: gunicorn spectralchart:app
