@@ -13,6 +13,7 @@
   <li><a href="http://127.0.0.1:8000/upload_file/">Add data</a></li>
   <li><a href="http://127.0.0.1:8000/about/">About</a></li>
   <li><a href="http://127.0.0.1:8000/login/">Login</a></li>
+  <div class="user_name" style="color:red">{{ user.username }}</div>  
 </ul>	
 
 
@@ -34,7 +35,12 @@
 	
 	{{ form.as_p }}
 
+	{% if user.is_authenticated %}
+
     <p><input type="submit" value="Upload"/></p>
+	
+	{% endif %}
+	 
 </form>
 
 {% endblock %}

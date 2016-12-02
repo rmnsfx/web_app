@@ -28,6 +28,7 @@ from django.contrib.auth import views
 
 
 
+
 rate = 0
 file = 0
 file_path = 0
