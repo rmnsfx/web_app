@@ -24,6 +24,9 @@ from blog.forms import DocumentForm
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth import views
+
+
 
 rate = 0
 file = 0

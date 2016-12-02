@@ -1,3 +1,4 @@
+
 {% load staticfiles %}
 
 <html>
@@ -15,9 +16,15 @@
   <li><a href="http://127.0.0.1:8000/login/">Login</a></li>
 </ul>	
 
-<div class="text">
-     <h1>"Spectral chart" is a web app for create amplitude spectrum chart. To get started click "Add data", set sampling frequency and upload a file with amplitude value points.</h1>
-</div>
 
-</body>
-</html>
+{% block content %}
+  
+  <form method="post">
+    {% csrf_token %}    	
+	
+	{{ form.as_p }}	    
+
+    <p><button type="submit">Login</button></p>
+  </form>
+{% endblock %}
+
